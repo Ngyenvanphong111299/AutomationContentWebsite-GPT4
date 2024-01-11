@@ -1,0 +1,110 @@
+﻿@model BlogDtoForCreate
+@{
+    ViewData["Title"] = "Create Blog";
+}
+
+<div class="row mb-2">
+    <div class="p-0 d-flex align-items-center justify-content-between">
+        <h3 class="mb-4">Create Blog</h3>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i></button>
+    </div>
+</div>
+<form asp-action="Create" method="post" class="row p-3 d-flex rounded shadow">
+    <div class="col-lg-8">
+        <div class="d-flex mb-3 w-100">
+            <button type="button" class="btn btn-primary mb-2 me-2" id="copy-gpt-promt">
+                <i class="fa-solid fa-robot"></i>
+            </button>
+            <button type="button" class="btn btn-info text-white mb-2" id="paste-gpt-data">
+                <i class="fa-solid fa-paste"></i>
+            </button>
+        </div>
+        <div class="mb-3 d-flex">
+            <label asp-for="Title" class="form-label w-25">Title</label>
+            <input asp-for="Title" class="form-control w-75" />
+        </div>
+        <div class="mb-3 d-flex">
+            <label asp-for="MetaDescription" class="form-label w-25">Meta Description</label>
+            <input asp-for="MetaDescription" class="form-control w-75" />
+        </div>
+        <div class="mb-3 d-flex">
+            <label asp-for="Keywords" class="form-label w-25">Keywords</label>
+            <input asp-for="Keywords" class="form-control w-75" />
+        </div>
+        <div class="mb-3 d-flex">
+            <label asp-for="Slug" class="form-label w-25">Slug</label>
+            <input asp-for="Slug" class="form-control w-75" />
+        </div>
+        <div class="mb-3">
+            <textarea id="content" asp-for="Content" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="mb-3">
+            <div class="card rounded border-0">
+                <div class="d-flex mb-2">
+                    <button type="button" id="get-avatar-promt" class="btn btn-sm btn-primary me-2">
+                        <i class="fa-solid fa-robot"></i>
+                    </button>
+                    <input type="file" id="upload-avatar-image" class="form-control" />
+                </div>
+                <img id="avatar-image" class="w-100 rounded border-1" height="200" src="" />
+            </div>
+        </div>
+        <ul class="list-group image-list mb-3">
+        </ul>
+        <table class="table table-bordered mb-3">
+            <thead>
+                <tr>
+                    <th class="d-flex align-items-center"><button type="button" class="btn btn-primary me-2" id="add-more-category"><i class="fa-solid fa-plus"></i></button> Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="category-list">
+                
+            </tbody>
+        </table>
+        <table class="table table-bordered mb-3">
+            <thead>
+                <tr>
+                    <th>Tag</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tag-list">
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" asp-for="AvatarPath" />
+    <input type="hidden" asp-for="Categories" />
+    <input type="hidden" asp-for="Tags" />
+</form>
+
+<div class="d-none" id="gpt-data-visualizer"></div>
+<textarea id="gpt-promt" class="d-none form-control mb-3" rows="5"></textarea>
+<div class="d-none" id="source-title"></div>
+<div class="d-none" id="source-content"></div>
+<div class="d-none" id="source-link">@ViewBag.link</div>
+<div class="d-none" id="image-promt"></div>
+
+@section Styles {
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        table td,
+        table th {
+            vertical-align: central;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script src="~/lib/sortable/sortable.min.js"></script>
+    <script src="~/js/manageblogcategory-module.js"></script>
+    <script src="~/js/manageblog.js"></script>
+}

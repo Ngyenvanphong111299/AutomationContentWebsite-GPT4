@@ -1,0 +1,39 @@
+﻿<h1 class="mb-4">List Source Blog</h1>
+<div class="row p-3 d-flex rounded shadow">
+    <div class="col-lg-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Domain</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody class="tbl-body">
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        function template(data) {
+            return `<tr>
+                        <th scope="row"><img class="rounded" src="${data.avatarPath}" height="80" width="160"/></th>
+                        <td>${data.title}</td>
+                        <td>${data.link}</td>
+                        <td>${data.domain}</td>
+                        <td><a href="/ManageBlog/Create?link=${data.link}" class="btn btn-primary">Use</a></td>
+                    </tr>`;
+        }
+        var connection = new signalR.HubConnectionBuilder().withUrl("/ManageBlogSourceHub").build();
+        connection.on("ReceiveNewBlogSource", function (dto) {
+            $(".tbl-body").append(template(dto));
+        });
+        connection.start();
+    </script>
+}
